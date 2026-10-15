@@ -1,0 +1,367 @@
+@import url('https://googleapis.com');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #0b0d10;
+    color: #d1d5db;
+    font-family: 'Share Tech Mono', monospace;
+    padding: 40px 20px;
+    position: relative;
+    overflow-x: hidden;
+}
+
+/* Efeito de linhas de monitor antigo (Scanlines) */
+body::before {
+    content: " ";
+    display: block;
+    position: fixed;
+    top: 0; left: 0; bottom: 0; right: 0;
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+    z-index: 99999;
+    opacity: 0.15;
+    pointer-events: none;
+    background-size: 100% 4px, 6px 100%;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 10;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.aw-logo {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 3.5rem;
+    font-weight: 700;
+    color: #00ffcc;
+    letter-spacing: -5px;
+    text-shadow: 0 0 10px rgba(0, 255, 204, 0.6);
+    margin-bottom: 10px;
+    display: inline-block;
+    animation: logoGlow 2s infinite ease-in-out alternate;
+}
+
+header h1 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.8rem;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: #ffffff;
+    margin-bottom: 8px;
+}
+
+/* Animação Typewriter para o texto do cabeçalho */
+.typewriter {
+    color: #64748b;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    white-space: nowrap;
+    overflow: hidden;
+    border-right: 2px solid #00ffcc;
+    display: inline-block;
+    margin: 0 auto;
+    animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
+}
+
+/* Painel de Cadastro de Patentes */
+.admin-panel {
+    background: #12161a;
+    border: 1px solid #1e293b;
+    border-top: 4px solid #00ffcc;
+    padding: 20px;
+    margin-bottom: 30px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+}
+
+.admin-panel h3 {
+    font-family: 'Orbitron', sans-serif;
+    color: #ffffff;
+    text-transform: uppercase;
+    margin-bottom: 15px;
+    font-size: 1.1rem;
+    letter-spacing: 1px;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    font-size: 0.8rem;
+    color: #64748b;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+}
+
+.form-group input, .form-group select, .form-group textarea {
+    background: #0b0d10;
+    border: 1px solid #1e293b;
+    color: #00ffcc;
+    padding: 10px;
+    font-family: 'Share Tech Mono', monospace;
+    outline: none;
+    border-radius: 2px;
+    transition: all 0.3s;
+}
+
+.form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+    border-color: #00ffcc;
+    box-shadow: 0 0 8px rgba(0, 255, 204, 0.2);
+}
+
+.textarea-group {
+    grid-column: 1 / -1;
+}
+
+.btn-submit {
+    background: transparent;
+    border: 1px solid #00ffcc;
+    color: #00ffcc;
+    padding: 12px 20px;
+    font-family: 'Orbitron', sans-serif;
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%;
+}
+
+.btn-submit:hover {
+    background: #00ffcc;
+    color: #0b0d10;
+    box-shadow: 0 0 15px rgba(0, 255, 204, 0.4);
+}
+
+/* Zona de Backup e Sincronização */
+.backup-zone {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+    border-top: 1px dashed #1e293b;
+    padding-top: 15px;
+}
+
+.btn-backup {
+    background: #1e293b;
+    border: 1px solid #475569;
+    color: #cbd5e1;
+    padding: 6px 14px;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.85rem;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: all 0.2s;
+}
+
+.btn-backup:hover {
+    border-color: #00ffcc;
+    color: #00ffcc;
+}
+
+/* Seção de Busca e Filtros */
+.search-box {
+    margin-bottom: 15px;
+}
+
+.search-box input {
+    width: 100%;
+    padding: 16px 24px;
+    font-size: 1.2rem;
+    font-family: 'Share Tech Mono', monospace;
+    background-color: #12161a;
+    border: 1px solid #1e293b;
+    border-left: 4px solid #00ffcc;
+    color: #00ffcc;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.search-box input:focus {
+    box-shadow: 0 0 15px rgba(0, 255, 204, 0.3);
+    border-color: #00ffcc;
+}
+
+.filter-tags {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 25px;
+    flex-wrap: wrap;
+}
+
+.tag-btn {
+    background: #12161a;
+    border: 1px solid #1e293b;
+    color: #64748b;
+    padding: 8px 16px;
+    cursor: pointer;
+    text-transform: uppercase;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.85rem;
+    transition: all 0.3s ease;
+}
+
+.tag-btn.active, .tag-btn:hover {
+    border-color: #00ffcc;
+    color: #00ffcc;
+    box-shadow: 0 0 10px rgba(0, 255, 204, 0.1);
+}
+
+/* Grid de Resultados */
+.results-container {
+    display: grid;
+    gap: 20px;
+}
+
+/* Animação Fade-in com subida para os cards surgirem suavemente */
+.patent-card {
+    background: #12161a;
+    padding: 24px;
+    border: 1px solid #1e293b;
+    position: relative;
+    opacity: 0;
+    transform: translateY(15px);
+    animation: cardAppear 0.4s forwards ease-out;
+    transition: all 0.3s ease;
+}
+
+.patent-card:hover {
+    border-color: #00ffcc;
+    box-shadow: 0 0 15px rgba(0, 255, 204, 0.15);
+    transform: translateY(-2px);
+}
+
+.patent-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    border-bottom: 1px dashed #1e293b;
+    padding-bottom: 10px;
+}
+
+.patent-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.3rem;
+    color: #ffffff;
+    text-transform: uppercase;
+}
+
+.patent-code {
+    color: #00ffcc;
+    font-size: 0.95rem;
+    font-weight: bold;
+}
+
+.patent-desc {
+    color: #94a3b8;
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+/* Metadados */
+.patent-meta {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 10px;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    color: #64748b;
+    border-top: 1px solid #1e293b;
+    padding-top: 12px;
+    align-items: center;
+}
+
+.meta-item span {
+    color: #cbd5e1;
+}
+
+.status-badge {
+    font-weight: bold;
+    padding: 2px 6px;
+    border-radius: 3px;
+    display: inline-block;
+}
+
+.status-classified { color: #ef4444; background: rgba(239, 68, 68, 0.1); border: 1px solid #ef4444; }
+.status-operational { color: #10b981; background: rgba(16, 185, 129, 0.1); border: 1px solid #10b981; }
+.status-archived { color: #f59e0b; background: rgba(245, 158, 11, 0.1); border: 1px solid #f59e0b; }
+
+.btn-delete {
+    background: transparent;
+    border: 1px dashed #ef4444;
+    color: #ef4444;
+    padding: 4px 8px;
+    cursor: pointer;
+    font-family: 'Share Tech Mono', monospace;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    justify-self: end;
+    transition: all 0.2s;
+}
+
+.btn-delete:hover {
+    background: #ef4444;
+    color: #ffffff;
+    box-shadow: 0 0 10px rgba(239, 68, 68, 0.3);
+}
+
+.no-results {
+    text-align: center;
+    color: #ef4444;
+    font-size: 1.2rem;
+    padding: 40px;
+    background: #12161a;
+    border: 1px dashed #ef4444;
+    display: none;
+    text-transform: uppercase;
+    animation: flashError 1.5s infinite alternate;
+}
+
+/* KEYFRAMES DAS ANIMAÇÕES */
+@keyframes logoGlow {
+    from { text-shadow: 0 0 10px rgba(0, 255, 204, 0.5); }
+    to { text-shadow: 0 0 20px rgba(0, 255, 204, 0.9), 0 0 30px rgba(0, 255, 204, 0.4); }
+}
+
+@keyframes typing {
+    from { width: 0; }
+    to { width: 100%; }
+}
+
+@keyframes blink-caret {
+    from, to { border-color: transparent; }
+    50% { border-color: #00ffcc; }
+}
+
+@keyframes cardAppear {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes flashError {
+    from { border-color: #ef4444; box-shadow: inset 0 0 0px rgba(239, 68, 68, 0); }
+    to { border-color: #ff6b6b; box-shadow: inset 0 0 10px rgba(239, 68, 68, 0.2); }
+}

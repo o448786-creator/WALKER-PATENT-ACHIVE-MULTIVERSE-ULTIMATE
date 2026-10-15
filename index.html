@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Walker Patent Archive - Multiverse Ultimate</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <div class="aw-logo">//AW\\</div>
+        <h1>Walker Multiverse Archive</h1>
+        <p class="typewriter">Terminal definitivo integrado de patentes do Multiverso e Resistência...</p>
+    </header>
+
+    <!-- FORMULÁRIO DE CADASTRO -->
+    <div class="admin-panel">
+        <h3>[+] Injetar Nova Patente</h3>
+        <form id="patentForm">
+            <div class="form-grid">
+                <div class="form-group">
+                    <label>Código da Patente (Ex: WK-, MV-, SP-)</label>
+                    <input type="text" id="newCode" placeholder="Ex: WK-8888" required>
+                </div>
+                <div class="form-group">
+                    <label>Nome do Projeto</label>
+                    <input type="text" id="newName" placeholder="Ex: Horizon Mask" required>
+                </div>
+                <div class="form-group">
+                    <label>Inventor / Corporação</label>
+                    <input type="text" id="newInventor" placeholder="Ex: Resistance Labs" required>
+                </div>
+                <div class="form-group">
+                    <label>Status de Segurança</label>
+                    <select id="newStatus">
+                        <option value="OPERATIONAL">OPERATIONAL</option>
+                        <option value="CLASSIFIED">CLASSIFIED</option>
+                        <option value="ARCHIVED">ARCHIVED</option>
+                    </select>
+                </div>
+                <div class="form-group textarea-group">
+                    <label>Descrição e Especificações Técnicas</label>
+                    <textarea id="newDesc" rows="2" placeholder="Digite os detalhes e componentes da patente..." required></textarea>
+                </div>
+            </div>
+            <button type="submit" class="btn-submit">Gravar Registro na Memória Central</button>
+        </form>
+
+        <div class="backup-zone">
+            <button class="btn-backup" id="btnExport">💾 Exportar Banco (.json)</button>
+            <button class="btn-backup" id="btnImportFake">📂 Importar Backup</button>
+            <input type="file" id="importFile" style="display:none" accept=".json">
+        </div>
+    </div>
+
+    <!-- BUSCA -->
+    <div class="search-box">
+        <input type="text" id="searchInput" placeholder="DIGITE O NOME, CÓDIGO, INVENTOR OU STATUS PARA FILTRAR...">
+    </div>
+
+    <!-- FILTROS RÁPIDOS -->
+    <div class="filter-tags" id="filterTags">
+        <button class="tag-btn active" data-prefix="ALL">[ Todos os Registros ]</button>
+        <button class="tag-btn" data-prefix="WK-">[ Walker Universe ]</button>
+        <button class="tag-btn" data-prefix="MV-">[ Marvel Core ]</button>
+        <button class="tag-btn" data-prefix="SP-">[ Spider-Verse ]</button>
+    </div>
+
+    <!-- GRID DE RESULTADOS -->
+    <div class="results-container" id="resultsContainer"></div>
+    <div class="no-results" id="noResults">[ERRO] NENHUM REQUISITO COMBINA COM O TERMO DA VARREDURA.</div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
